@@ -2,6 +2,90 @@
 
 This is a simple set of scripts that allow you to load all of your Strava activities into a Postgres database.
 
+```sql
+gomes=> select sport_type, count(*) from activities group by sport_type order by count desc;
+   sport_type   | count
+----------------+-------
+ Run            |   711
+ Ride           |   154
+ VirtualRide    |   126
+ Swim           |    91
+ WeightTraining |    65
+ Workout        |    30
+ Walk           |    29
+ AlpineSki      |    19
+ Elliptical     |     8
+ Hike           |     7
+ Yoga           |     1
+ Kayaking       |     1
+ StairStepper   |     1
+ Windsurf       |     1
+ Tennis         |     1
+ Rowing         |     1
+ Surfing        |     1
+(17 rows)
+
+                             Table "public.activities"
+            Column             |       Type       | Collation | Nullable | Default
+-------------------------------+------------------+-----------+----------+---------
+ resource_state                | double precision |           |          |
+ athlete.id                    | double precision |           |          |
+ athlete.resource_state        | double precision |           |          |
+ name                          | text             |           |          |
+ distance                      | double precision |           |          |
+ moving_time                   | double precision |           |          |
+ elapsed_time                  | double precision |           |          |
+ total_elevation_gain          | double precision |           |          |
+ type                          | text             |           |          |
+ sport_type                    | text             |           |          |
+ workout_type                  | double precision |           |          |
+ id                            | double precision |           | not null |
+ start_date                    | text             |           |          |
+ start_date_local              | text             |           |          |
+ timezone                      | text             |           |          |
+ utc_offset                    | double precision |           |          |
+ location_city                 | text             |           |          |
+ location_state                | text             |           |          |
+ location_country              | text             |           |          |
+ achievement_count             | double precision |           |          |
+ kudos_count                   | double precision |           |          |
+ comment_count                 | double precision |           |          |
+ athlete_count                 | double precision |           |          |
+ photo_count                   | double precision |           |          |
+ map.id                        | text             |           |          |
+ map.summary_polyline          | text             |           |          |
+ map.resource_state            | double precision |           |          |
+ trainer                       | boolean          |           |          |
+ commute                       | boolean          |           |          |
+ manual                        | boolean          |           |          |
+ private                       | boolean          |           |          |
+ visibility                    | text             |           |          |
+ flagged                       | boolean          |           |          |
+ gear_id                       | text             |           |          |
+ start_latlng                  | json             |           |          |
+ end_latlng                    | json             |           |          |
+ average_speed                 | double precision |           |          |
+ max_speed                     | double precision |           |          |
+ average_cadence               | double precision |           |          |
+ average_temp                  | double precision |           |          |
+ has_heartrate                 | boolean          |           |          |
+ average_heartrate             | double precision |           |          |
+ max_heartrate                 | double precision |           |          |
+ heartrate_opt_out             | boolean          |           |          |
+ display_hide_heartrate_option | boolean          |           |          |
+ elev_high                     | double precision |           |          |
+ elev_low                      | double precision |           |          |
+ upload_id                     | double precision |           |          |
+ upload_id_str                 | text             |           |          |
+ external_id                   | text             |           |          |
+ from_accepted_tag             | boolean          |           |          |
+ pr_count                      | double precision |           |          |
+ total_photo_count             | double precision |           |          |
+ has_kudoed                    | boolean          |           |          |
+Indexes:
+    "activities_pkey" PRIMARY KEY, btree (id)
+```
+
 ## How to use it?
 
 1. Register a Strava app through https://www.strava.com/settings/api.
