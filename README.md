@@ -25,6 +25,7 @@ gomes=> select sport_type, count(*) from activities group by sport_type order by
  Surfing        |     1
 (17 rows)
 
+gomes=> \d activities
                              Table "public.activities"
             Column             |       Type       | Collation | Nullable | Default
 -------------------------------+------------------+-----------+----------+---------
