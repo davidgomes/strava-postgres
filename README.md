@@ -130,7 +130,7 @@ bun load-activities.ts 518ccfd5859027a07577302ee8729a7fde462517  146.06s user 54
 
 That's ~4 minutes. And this is how long it will take to load activities for **the first time**:
 
-```
+```bash
 $ time bun load-activities.ts <access-token>
 Page 1 (200 activities found)
 [Activity 1] Inserting brand new activity.
