@@ -1,19 +1,19 @@
 {
-  "name": "strava-pg",
-  "module": "script.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "5.0.0"
-  },
-  "dependencies": {
-    "@types/prompts": "2.4.9",
-    "axios": "^1.6.7",
-    "pg": "8.11.3",
-    "prettier": "3.2.4",
-    "prompts": "2.4.2",
-    "strava-v3": "2.2.0"
-  }
+    "name": "strava-pg",
+    "module": "script.ts",
+    "type": "module",
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "5.0.0"
+    },
+    "dependencies": {
+        "@types/prompts": "2.4.9",
+        "axios": "^1.6.7",
+        "pg": "8.11.3",
+        "prettier": "3.2.4",
+        "prompts": "2.4.2",
+        "strava-v3": "2.2.0"
+    }
 }

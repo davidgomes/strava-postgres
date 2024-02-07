@@ -1,24 +1,24 @@
 import strava from "strava-v3";
 const { Pool } = require("pg");
 
-import { parseArgs, type ParseArgsConfig } from 'node:util';
+import { parseArgs, type ParseArgsConfig } from "node:util";
 
 const CLI_OPTIONS: ParseArgsConfig["options"] = {
-  "update-existing": {
-    type: 'boolean',
-    default: false,
-  },
+    "update-existing": {
+        type: "boolean",
+        default: false,
+    },
 };
 
-const {
-  values: cliOptionValues,
-  positionals,
-} = parseArgs({ options: CLI_OPTIONS, allowPositionals: true });
+const { values: cliOptionValues, positionals } = parseArgs({
+    options: CLI_OPTIONS,
+    allowPositionals: true,
+});
 
 if (positionals.length !== 1) {
-  console.error(
-      "This script must be called with 1 positional argument, which should be the access token for the Strava API. You can retrieve this with 'bun get-access-token.ts'.",
-  );
+    console.error(
+        "This script must be called with 1 positional argument, which should be the access token for the Strava API. You can retrieve this with 'bun get-access-token.ts'.",
+    );
 }
 
 const STRAVA_ACCESS_TOKEN = positionals[0];
@@ -46,9 +46,9 @@ try {
             per_page: PER_PAGE,
             page: pageNum,
         });
-        
+
         if (apiData.length === 0) {
-          break;
+            break;
         }
 
         console.log(`Page ${pageNum} (${apiData.length} activities found)`);
@@ -61,11 +61,14 @@ try {
                 [activity.id],
             );
 
-            const activityIdx = (pageNum-1) * PER_PAGE + i + 1; // 1-indexed activity count
+            const activityIdx = (pageNum - 1) * PER_PAGE + i + 1; // 1-indexed activity count
             if (rows[0].count === "1" && !cliOptionValues["update-existing"]) {
-              // If we're not updating existing activities, we ignore them.
-              continue;
-            } else if (rows[0].count === "1" && cliOptionValues["update-existing"]) {
+                // If we're not updating existing activities, we ignore them.
+                continue;
+            } else if (
+                rows[0].count === "1" &&
+                cliOptionValues["update-existing"]
+            ) {
                 console.log(
                     `[Activity ${activityIdx}] Found activity that's already tracked, updating.`,
                 );
