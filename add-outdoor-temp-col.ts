@@ -13,10 +13,9 @@ const pool = new Pool({
 const client = await pool.connect();
 
 try {
-    await client.query(`
-		ALTER TABLE activities 
-		ADD COLUMN IF NOT EXISTS outdoor_temp double precision;
-	`);
+    await client.query(
+        "ALTER TABLE activities ADD COLUMN IF NOT EXISTS outdoor_temp double precision;",
+    );
     console.log(
         "Column 'outdoor_temp' has been added to the activities table.",
     );
