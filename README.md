@@ -111,6 +111,43 @@ Successfully retrieved access token: f6a7d88c02a3429fb62cc9f97fc54fb1cc868912
 (If you've made edits to existing activities and want to force them to get updated, you can run `bun load-activities.ts --update-existing <access-token>`)
 
 10. Connect to your Postgres instance, and run `select * from <database_name>.activities`.
+11. Additionally, if you would also like to add outdoor temperature data to your activities, you can run two additional scripts:
+* Run `bun add-outdoor-temp-col.ts` in order to add an additional column to the activities table;
+* Run `bun update-outdoor-temp.ts` - This script retrieves outdoor temperature data for your Strava activities based on their time and location by using [Open-Meteo](https://open-meteo.com/), a free (for non-commercial purposes) open-source weather API. It then updates your activities table with this additional information.
+
+With this additional data, we can, for example, identify the activities that occurred at the highest and lowest temperatures.
+
+```sql
+ls=> SELECT name, distance, outdoor_temp FROM activities WHERE outdoor_temp IS NOT NULL ORDER BY outdoor_temp DESC;
+    name        | distance | outdoor_temp
+----------------+----------+-------------
+ Morning Run    |   8310.8 |        34.25
+ Morning Run    |   6016.2 |         33.2
+ Evening Run    |   5017.7 |           33
+ Morning Run    |   2557.2 |         32.4
+ Morning Run    |  12687.5 |         31.8
+ Evening Run    |   7013.9 |         31.5
+ Lunch Run      |   8523.6 |           31
+ Evening Run    |   7511.6 |         30.8
+ Afternoon Run  |   7502.8 |         30.7
+ Morning Run    |  24019.1 |        30.55
+...
+
+ls=> SELECT name, distance, outdoor_temp FROM activities WHERE outdoor_temp IS NOT NULL ORDER BY outdoor_temp;
+    name        | distance | outdoor_temp
+----------------+----------+-------------
+ Evening Run    |   4446.9 |         -5.9
+ Morning Run    |   3214.5 |         -5.1
+ Morning Run    |  11021.3 |           -5
+ Morning Run    |  17010.9 |         -4.4
+ Evening Run    |   5087.4 |         -4.1
+ Morning Run    |   6015.4 |           -2
+ Evening Run    |   8379.6 |         -1.8
+ Evening Run    |   4604.9 |         -1.5
+ Morning Run    |   5067.7 |         -1.2
+ Morning Run    |   5041.2 |           -1
+...
+```
 
 ## How long does it take?
 
